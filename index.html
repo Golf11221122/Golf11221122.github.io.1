@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #FFA500, #FFFFFF);
+      color: #002366;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 1.2rem;
+      background-color: #ffffffcc;
+      color: #002366;
+      border: none;
+      border-radius: 20px;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #fff;
+      transform: scale(1.03);
+    }
+
+    .success {
+      text-align: center;
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>สมัครสมาชิก</h1>
+
+  <label>ชื่อ</label>
+  <input type="text" id="fname" required>
+
+  <label>นามสกุล</label>
+  <input type="text" id="lname" required>
+
+  <label>ชื่อเล่น</label>
+  <input type="text" id="nickname" required>
+
+  <label>อายุ</label>
+  <input type="number" id="age" required>
+
+  <label>เบอร์โทร</label>
+  <input type="tel" id="phone" required>
+
+  <label>ที่อยู่</label>
+  <textarea id="address" rows="3" required></textarea>
+
+  <button onclick="submitForm()">บันทึก</button>
+
+  <div class="success" id="successMessage"></div>
+
+  <script>
+    function generateID() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+
+    function submitForm() {
+      const data = {
+        id: generateID(),
+        fname: document.getElementById("fname").value,
+        lname: document.getElementById("lname").value,
+        nickname: document.getElementById("nickname").value,
+        age: document.getElementById("age").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+      };
+
+      fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      document.getElementById("successMessage").innerText = "บันทึกเรียบร้อยแล้ว กรุณารอการติดต่อกลับจากเจ้าหน้าที่ภายหลัง";
+
+      // ล้างฟอร์ม
+      document.querySelectorAll("input, textarea").forEach(input => input.value = "");
+    }
+  </script>
+
+</body>
+</html>
