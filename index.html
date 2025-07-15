@@ -85,37 +85,36 @@
   <div class="success" id="successMessage"></div>
 
   <script>
-    function generateID() {
-      return Math.floor(100000 + Math.random() * 900000).toString();
-    }
+  function generateID() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
 
+  function submitForm() {
+    const data = {
+      id: generateID(),
+      fname: document.getElementById("fname").value,
+      lname: document.getElementById("lname").value,
+      nickname: document.getElementById("nickname").value,
+      age: document.getElementById("age").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+    };
 
-    function submitForm() {
-      const data = {
-        id: generateID(),
-        fname: document.getElementById("fname").value,
-        lname: document.getElementById("lname").value,
-        nickname: document.getElementById("nickname").value,
-        age: document.getElementById("age").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value,
-      };
+    fetch("https://script.google.com/macros/s/AKfycbzY9gDX-lBW8lg9nAS5XJ40beHLLMki9UcPe9QyLPlir7Zl1v1bAzgxzyWCIBFBSDNm/exec", {
+      method: "POST",
+      mode: "no-cors", // สำคัญมากสำหรับไม่ให้ block
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-      fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
+    // แสดงข้อความสำเร็จ และล้างฟอร์ม
+    document.getElementById("successMessage").innerText =
+      "ขอบคุณที่เข้ามาอยู่ในครอบครัว JOKJUNGน่ะครับ";
 
-      document.getElementById("successMessage").innerText = "ขอบคุณที่เข้ามาอยู่ในครอบครัว JOKJUNGน่ะครับ";
-
-      // ล้างฟอร์ม
-      document.querySelectorAll("input, textarea").forEach(input => input.value = "");
-    }
-  </script>
-
+    document.querySelectorAll("input, textarea").forEach(input => input.value = "");
+  }
+</script>
 </body>
 </html>
